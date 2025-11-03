@@ -3,13 +3,13 @@ description: Propose a new capability or improvement to Pulse.
 title: "[Feature]: "
 labels:
   - enhancement
-  - needs-triage
+
 body:
   - type: markdown
     attributes:
       value: >
-        Use this template to describe the opportunity, desired outcome, and success
-        measures for a new capability or improvement.
+        Share the key details we need to understand the opportunity and evaluate the work.
+
   - type: input
     id: summary
     attributes:
@@ -18,63 +18,50 @@ body:
       placeholder: Support scheduled report exports
     validations:
       required: true
+
   - type: textarea
     id: problem
     attributes:
-      label: Problem Statement
-      description: What user problem or business need does this feature address?
+      label: Problem To Solve
+      description: What user pain, business need, or workflow gap does this feature address?
       placeholder: >
-        Customer success teams need automated deliveries of weekly analytics to
-        reduce manual reporting overhead.
+        Customer success teams spend hours manually exporting weekly dashboards for clients.
     validations:
       required: true
+
   - type: textarea
-    id: goals
+    id: outcome
     attributes:
-      label: Goals & Success Metrics
-      description: Define the goals and how we will know the feature is successful.
+      label: Desired Outcome
+      description: Describe the impact or success measure once the feature ships.
       placeholder: >
-        - Reduce manual report creation time by 50%
-        - Increase weekly report engagement by 20%
+        Automate weekly client dashboard delivery and cut manual prep time by 50%.
     validations:
       required: true
+
   - type: textarea
     id: solution
     attributes:
       label: Proposed Solution
-      description: Outline the suggested approach, UX, or technical design at a high level.
+      description: Outline the preferred approach, UX direction, or technical ideas.
       placeholder: >
         Add a scheduling option to the report builder allowing users to email reports
-        to distribution lists with predefined cadence.
-    validations:
-      required: true
-  - type: textarea
-    id: alternatives
-    attributes:
-      label: Considered Alternatives
-      description: Describe any alternative solutions explored and why they were not chosen.
-      placeholder: >
-        Alternative: manual exports with documentation for teams. Rejected because it does
-        not scale for enterprise customers.
-  - type: textarea
-    id: dependencies
-    attributes:
-      label: Dependencies & Risks
-      description: Note related features, technical dependencies, or risks to track.
-      placeholder: Depends on email service redesign planned for Q3.
+        to distribution lists with a predefined cadence.
+
   - type: textarea
     id: acceptance
     attributes:
       label: Acceptance Criteria
       description: List the user-visible scenarios that must be satisfied for this feature to ship.
       placeholder: |
-        - Given a saved report, when I set a weekly schedule, then subscribers receive the report at the scheduled time.
-        - Given multiple schedules, when I edit an existing one, then the update is reflected immediately.
+        - Given a saved report, when I set a weekly schedule, subscribers receive the report at the scheduled time.
+        - Given multiple schedules, when I edit an existing one, the update is reflected immediately.
     validations:
       required: true
+
   - type: textarea
     id: context
     attributes:
       label: Additional Context
-      description: Include discovery research, metrics, mockups, or related issues.
+      description: Include discovery notes, urgency, metrics, or related issues.
       placeholder: Link to research notes, mockups, or other supporting documents.
