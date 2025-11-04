@@ -2,7 +2,7 @@
 name: Feature request
 about: Feature Request Template
 title: ''
-labels: feature
+labels: enhancement
 assignees: JoshGill3882
 
 ---
