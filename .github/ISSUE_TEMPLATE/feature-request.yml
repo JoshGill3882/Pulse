@@ -1,67 +1,62 @@
-name: Feature Request
-description: Propose a new capability or improvement to Pulse.
-title: "[Feature]: "
+name: Feature request
+description: Suggest an enhancement for Pulse.
+title: ""
 labels:
-  - enhancement
-
+  - feature
+assignees:
+  - JoshGill3882
 body:
-  - type: markdown
+  - type: textarea
+    id: description
     attributes:
-      value: >
-        Share the key details we need to understand the opportunity and evaluate the work.
-
-  - type: input
-    id: summary
-    attributes:
-      label: Summary
-      description: One-line description of the feature.
-      placeholder: Support scheduled report exports
+      label: Description
+      description: What is the feature and why is it needed?
+      placeholder: Outline the user problem and the value this feature adds.
     validations:
       required: true
-
-  - type: textarea
-    id: problem
-    attributes:
-      label: Problem To Solve
-      description: What user pain, business need, or workflow gap does this feature address?
-      placeholder: >
-        Customer success teams spend hours manually exporting weekly dashboards for clients.
-    validations:
-      required: true
-
-  - type: textarea
-    id: outcome
-    attributes:
-      label: Desired Outcome
-      description: Describe the impact or success measure once the feature ships.
-      placeholder: >
-        Automate weekly client dashboard delivery and cut manual prep time by 50%.
-    validations:
-      required: true
-
-  - type: textarea
-    id: solution
-    attributes:
-      label: Proposed Solution
-      description: Outline the preferred approach, UX direction, or technical ideas.
-      placeholder: >
-        Add a scheduling option to the report builder allowing users to email reports
-        to distribution lists with a predefined cadence.
-
   - type: textarea
     id: acceptance
     attributes:
       label: Acceptance Criteria
-      description: List the user-visible scenarios that must be satisfied for this feature to ship.
+      description: What needs to be true for this work to be considered complete?
       placeholder: |
-        - Given a saved report, when I set a weekly schedule, subscribers receive the report at the scheduled time.
-        - Given multiple schedules, when I edit an existing one, the update is reflected immediately.
+        - [ ] A user can...
+        - [ ] Reports include...
     validations:
       required: true
-
   - type: textarea
-    id: context
+    id: blocking
     attributes:
-      label: Additional Context
-      description: Include discovery notes, urgency, metrics, or related issues.
-      placeholder: Link to research notes, mockups, or other supporting documents.
+      label: Blocking Issues
+      description: List issues that block or are blocked by this request.
+      placeholder: |
+        Blocks: #123
+        Blocked by: #456
+  - type: textarea
+    id: performance
+    attributes:
+      label: Performance Considerations
+      description: Note any latency, throughput, or resource constraints.
+      placeholder: >
+        e.g. API must respond within 300ms for 95% of requests.
+  - type: textarea
+    id: scalability
+    attributes:
+      label: Scalability Considerations
+      description: Describe capacity expectations or scale-related requirements.
+      placeholder: >
+        e.g. Support 10x increase in concurrent dashboards without degradation.
+  - type: textarea
+    id: security
+    attributes:
+      label: Security Considerations
+      description: Capture authentication, authorization, or data protection needs.
+      placeholder: >
+        e.g. Feature must respect row-level access rules.
+  - type: textarea
+    id: comments
+    attributes:
+      label: Additional Comments
+      description: Anything else reviewers should know.
+      placeholder: >
+        Link to research notes, designs, or related documentation.
