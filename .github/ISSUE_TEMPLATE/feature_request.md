@@ -11,13 +11,13 @@ assignees: JoshGill3882
 
 Describe what the feature is and why it is necessary.
 
-## Acceptance Criteria
-
-- [ ] Outline what features need to be in place to mark this as "Done"
-
 ## Blocking Issues
 
 - [ ] Are there any issues which block or are blocked by this issue?
+
+## Acceptance Criteria
+
+- [ ] Outline what features need to be in place to mark this as "Done"
 
 ## Non-Functional Considerations
 
