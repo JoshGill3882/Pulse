@@ -1,0 +1,110 @@
+run:
+  timeout: 5m
+  issues-exit-code: 1
+
+
+linters:
+  enable:
+    # Core
+    - govet
+    - revive
+    - staticcheck
+    - ineffassign
+    - errcheck
+    - errorlint
+    - misspell
+
+    # Concurrency / context / resources
+    - contextcheck
+    - noctx
+    - bodyclose
+    - sqlclosecheck
+    - rowserrcheck
+
+    # Logging & style hygiene
+    - forbidigo
+    - sloglint
+    - loggercheck
+    - importas
+
+    # Security
+    - gosec
+
+    # Complexity / maintainability
+    - gocyclo
+    - dupl
+    - funlen
+
+    # Modernization & small wins
+    - modernize
+    - unparam
+    - unconvert
+
+    # Testing
+    - paralleltest
+    - tparallel
+    - thelper
+    # - testifylint # enable if using testify
+
+  disable:
+    # avoid duplication with staticcheck/revive or deprecated linters
+    - golint
+    - maligned
+    - interfacer
+    - scopelint
+
+
+linters-settings:
+  revive:
+    rules:
+      - name: exported
+      - name: var-naming
+      - name: receiver-naming
+      - name: error-return
+      - name: indent-error-flow
+      - name: time-naming
+      - name: context-as-argument
+
+  govet:
+    enable:
+      - fieldalignment
+      - shadow
+
+  gocyclo:
+    min-complexity: 15   # start mild; tighten later
+
+  dupl:
+    threshold: 150       # reduce noise; tighten per module
+
+  funlen:
+    lines: 120
+    statements: 60
+
+  misspell:
+    locale: US
+
+  forbidigo:
+    forbid:
+      - '^fmt\\.Print.*$'   # use slog/zap instead
+
+  importas:
+    no-unaliased: true
+    alias:
+      - pkg: context
+        alias: context
+
+  gosec:
+    excludes:
+      - G115               # common false positives; reconsider per-package
+    severity: 'medium'
+    confidence: 'high'
+
+  staticcheck:
+    checks: ['all']        # keep default; tune if too noisy
+
+
+issues:
+  exclude-use-default: false
+  exclude-rules:
+    - linters: [errcheck]
+      text: 'defer .*Close' # allow deferred Close without checking error
