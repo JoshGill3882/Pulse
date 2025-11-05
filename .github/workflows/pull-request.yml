@@ -17,8 +17,6 @@ jobs:
             go-version: v1.25.3
         - name: Run Linters
           uses: golangci/golangci-lint-action@v3
-          with:
-            version: v2.5.0
 
     test:
         name: Run Tests
