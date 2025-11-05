@@ -46,6 +46,7 @@ endif
 
 help:
 	@echo Detected OS: $(DETECTED_OS)
+	@echo make setup		- download go modules
 	@echo make build        - build $(BIN)
 	@echo make test         - run unit tests
 	@echo make run          - run $(PKG_MAIN)
@@ -60,6 +61,9 @@ help:
 	@echo make ci	        - run lint and test commands
 
 # -------- Core --------
+setup:
+	go mod download
+
 build:
 	@$(call MKDIR_P,$(OUT_DIR))
 	go build -o "$(BIN)" $(PKG_MAIN)
@@ -103,4 +107,4 @@ clean:
 	@$(call RM_RF,$(OUT_DIR))
 
 # Convenience
-ci: lint test
+ci: setup lint test build
