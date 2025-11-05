@@ -18,7 +18,7 @@ jobs:
         - name: Setup Linters
           uses: golangci/golangci-lint-action@v3
           with:
-            version: v1.58.1
+            version: v2.5.0
         - name: Run Linters
           run: make lint
 
