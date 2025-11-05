@@ -44,6 +44,6 @@ jobs:
         - name: Setup Go
           uses: actions/setup-go@v5
           with:
-            go-version: v1.25.
+            go-version: v1.25.3
         - name: Check Build
           run: make build
