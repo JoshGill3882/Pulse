@@ -1,0 +1,49 @@
+# This workflow will test that the Project builds and passes Linting tests successfully
+name: Project Build Test
+
+on:
+    pull_request:
+
+jobs:
+    lint:
+        name: Run Linters
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Go
+          uses: actions/setup-go@v5
+          with:
+            go-version: v1.25.3
+        - name: Setup Linters
+          uses: golangci/golangci-lint-action@v3
+          with:
+            version: v1.58.1
+        - name: Run Linters
+          run: make lint
+
+    test:
+        name: Run Tests
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Go
+          uses: actions/setup-go@v5
+          with:
+            go-version: v1.25.3
+        - name: Run Tests
+          run: make test
+
+    build:
+        name: Check Build
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v4
+        - name: Setup Go
+          uses: actions/setup-go@v5
+          with:
+            go-version: v1.25.
+        - name: Check Build
+          run: make build
