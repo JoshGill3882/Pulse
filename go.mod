@@ -1,3 +1,3 @@
-module github.com/JoshGill3882/pulse
+module joshgill.dev/pulse
 
 go 1.25.3
