@@ -15,8 +15,8 @@ const (
 
 // Mapping the different options to string values
 var statusName = map[Status]string{
-	Up:		"Up",
-	Down:	"Down",
+	Up:		"up",
+	Down:	"down",
 }
 
 // Creating a Function which returns the string value for a Status when given the Status

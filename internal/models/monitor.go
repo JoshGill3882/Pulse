@@ -6,26 +6,26 @@ import "time"
 // Definition of the "Monitor" type structure
 type Monitor struct {
 	// ID (UUID)
-	ID 					string
+	ID 					string				`json:"id"`
 	// Name (e.g. Portfolio Website)
-	Name 				string
+	Name 				string				`json:"name"`
 
 	// URL (e.g. "https://www.joshgill.dev")
-	URL 				string
+	URL 				string				`json:"url"`
 	// Method (e.g. "GET")
-	Method 				string
+	Method 				string				`json:"method"`
 	// Headers in a Map Format (e.g. {"Authentication": "Bearer: TOKEN"})
-	HeadersJson 		map[string]string
+	HeadersJson 		map[string]string	`json:"headers"`
 	// Interval between health check requests in seconds
-	IntervalSec 		int
+	IntervalSec 		int					`json:"interval"`
 	// List of acceptable HTTP Status Codes for the check to return to define an "Up" status
-	AcceptableHttpCodes []int
+	AcceptableHttpCodes []int				`json:"acceptableCodes"`
 	
 	// Datetime when the Monitor was created
-	CreatedAt 			time.Time
+	CreatedAt 			time.Time			`json:"createdAt"`
 	// Datetime when the Monitor was most recently updated
-	UpdatedAt 			time.Time
+	UpdatedAt 			time.Time			`json:"updatedAt"`
 
 	// Boolean of whether the Monitor is enabled
-	Enabled 			bool
+	Enabled 			bool				`json:"enabled"`
 }
