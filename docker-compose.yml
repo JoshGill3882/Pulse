@@ -7,12 +7,8 @@ services:
       dockerfile: Dockerfile
     container_name: pulse-app
     networks: [pulse, infra]
-    environment:
-      MONGO_HOST: mongo        # container name on infra network
-      MONGO_DB: pulse
-      MONGO_USER: ${MONGO_ROOT_USER}
-      MONGO_PASSWORD: ${MONGO_ROOT_PASSWORD}
-      MONGO_URI: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_HOST}:27017/${MONGO_DB}?authSource=admin
+    env_file:
+      - ./configs/.env
 
 networks:
   pulse:
