@@ -1,31 +1,20 @@
 version: "3.9"
 
 services:
-  db:
-    image: postgres:16-alpine
-    container_name: pulse-db
-    environment:
-      - POSTGRES_DB=pulse
-      - POSTGRES_USER=pulse
-      - POSTGRES_PASSWORD=pulse
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-      - ./database:/docker-entrypoint-initdb.d:ro
-    ports:
-      - "5432:5432"
-
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: pulse-app:latest
     container_name: pulse-app
-    depends_on:
-      - db
-    ports:
-      - "8080:8080"
+    networks: [pulse, infra]
     environment:
-      - DATABASE_URL=postgresql://pulse:pulse@db:5432/pulse?sslmode=disable
+      MONGO_HOST: mongo        # container name on infra network
+      MONGO_DB: pulse
+      MONGO_USER: ${MONGO_ROOT_USER}
+      MONGO_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_URI: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_HOST}:27017/${MONGO_DB}?authSource=admin
 
-volumes:
-  postgres-data:
+networks:
+  pulse:
+  infra:
+    external: true      # assumes `docker network create infra` already exists
