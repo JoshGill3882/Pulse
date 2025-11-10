@@ -10,7 +10,7 @@ import (
 	"joshgill.dev/pulse/internal/models"    // Internal model definitions
 )
 
-// Define the "Client" structure type
+// Define the "InfisicalClient" structure type
 type InfisicalClient struct {
 	SDK infisical.InfisicalClientInterface
 }
