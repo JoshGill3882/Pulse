@@ -16,7 +16,7 @@ type InfisicalClient struct {
 }
 
 // Constructor
-func New() (*InfisicalClient, error) {
+func NewInfisical() (*InfisicalClient, error) {
 	// Create the Client
 	client := infisical.NewInfisicalClient(context.Background(), infisical.Config{
 		AutoTokenRefresh: true,		// Let the SDK handle token refresh
