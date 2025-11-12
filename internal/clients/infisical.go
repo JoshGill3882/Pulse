@@ -10,17 +10,24 @@ import (
 	"joshgill.dev/pulse/internal/models"    // Internal model definitions
 )
 
-// Define the "InfisicalClient" structure type
-type InfisicalClient struct {
+type InfisicalClientInterface interface {
+	CreateSecret(ctx context.Context, secret *models.Secret) (*models.Secret, error)
+	GetSecret(ctx context.Context, secret *models.Secret) (*models.Secret, error)
+	UpdateSecret(ctx context.Context, secret *models.Secret) (*models.Secret, error)
+	DeleteSecret(ctx context.Context, secret *models.Secret) (error)
+}
+
+type infisicalClient struct {
 	SDK infisical.InfisicalClientInterface
 }
 
 // Constructor
-func NewInfisical() (*InfisicalClient, error) {
+func NewInfisical() (InfisicalClientInterface, error) {
 	// Create the Client
-	client := infisical.NewInfisicalClient(context.Background(), infisical.Config{
-		AutoTokenRefresh: true,		// Let the SDK handle token refresh
-	})
+	client := infisical.NewInfisicalClient(
+		context.Background(),
+		infisical.Config{ AutoTokenRefresh: true },		// Let the SDK handle token refresh
+	)
 
 	// Attempt to Authenticate to Infisical using the Environment Variable Values
 	// If the error is not nil, return it
@@ -29,11 +36,11 @@ func NewInfisical() (*InfisicalClient, error) {
 		os.Getenv("INFISICAL_DB_PASSWORD"),
 	); if err != nil { return nil, err }
 	// Otherwise, return the client
-	return &InfisicalClient{SDK: client}, nil
+	return &infisicalClient{SDK: client}, nil
 }
 
 // Function for creating a Secret
-func (c *InfisicalClient) CreateSecret(ctx context.Context, secret *models.Secret) (*models.Secret, error) {
+func (c *infisicalClient) CreateSecret(ctx context.Context, secret *models.Secret) (*models.Secret, error) {
 	// Create the Secret, ignoring the returned Infisical Secret struct
 	// If the error is not nil, return it
 	secretMade, err := c.SDK.Secrets().Create(infisical.CreateSecretOptions{
@@ -51,7 +58,7 @@ func (c *InfisicalClient) CreateSecret(ctx context.Context, secret *models.Secre
 }
 
 // Function for getting a Secret
-func (c *InfisicalClient) GetSecret(ctx context.Context, secret *models.Secret) (*models.Secret, error) {
+func (c *infisicalClient) GetSecret(ctx context.Context, secret *models.Secret) (*models.Secret, error) {
 	// Get the Secret from Infisical
 	// If the error returned is not nil, return it
 	secretFound, err := c.SDK.Secrets().Retrieve(infisical.RetrieveSecretOptions{
@@ -69,7 +76,7 @@ func (c *InfisicalClient) GetSecret(ctx context.Context, secret *models.Secret) 
 }
 
 // Function for updating a Secret
-func (c *InfisicalClient) UpdateSecret(ctx context.Context, secret *models.Secret) (*models.Secret, error) {
+func (c *infisicalClient) UpdateSecret(ctx context.Context, secret *models.Secret) (*models.Secret, error) {
 	// Update the Secret
 	// If the error returned is not nil, return it
 	newSecret, err := c.SDK.Secrets().Update(infisical.UpdateSecretOptions{
@@ -85,7 +92,7 @@ func (c *InfisicalClient) UpdateSecret(ctx context.Context, secret *models.Secre
 }
 
 // Function for deleting a Secret
-func (c *InfisicalClient) DeleteSecret(ctx context.Context, secret *models.Secret) (error) {
+func (c *infisicalClient) DeleteSecret(ctx context.Context, secret *models.Secret) (error) {
 	// Delete the secret, ignoring the returned secret value
 	// Return the error value, nil or otherwise
 	_, err := c.SDK.Secrets().Delete(infisical.DeleteSecretOptions{
