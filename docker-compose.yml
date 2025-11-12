@@ -9,8 +9,3 @@ services:
     networks: [pulse, infra]
     env_file:
       - ./configs/.env
-
-networks:
-  pulse:
-  infra:
-    external: true      # assumes `docker network create infra` already exists
