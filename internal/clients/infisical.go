@@ -10,6 +10,7 @@ import (
 	"joshgill.dev/pulse/internal/models"    // Internal model definitions
 )
 
+
 type InfisicalClientInterface interface {
 	CreateSecret(ctx context.Context, secret *models.Secret) (*models.Secret, error)
 	GetSecret(ctx context.Context, secret *models.Secret) (*models.Secret, error)
@@ -29,8 +30,7 @@ func NewInfisical() (InfisicalClientInterface, error) {
 		infisical.Config{ AutoTokenRefresh: true },		// Let the SDK handle token refresh
 	)
 
-	// Attempt to Authenticate to Infisical using the Environment Variable Values
-	// If the error is not nil, return it
+	// Attempt to Authenticate to Infisical using the Environment Variable Values, if the error is not nil return it
 	_, err:= client.Auth().UniversalAuthLogin(
 		os.Getenv("INFISICAL_DB_USER"),
 		os.Getenv("INFISICAL_DB_PASSWORD"),
@@ -38,6 +38,7 @@ func NewInfisical() (InfisicalClientInterface, error) {
 	// Otherwise, return the client
 	return &infisicalClient{SDK: client}, nil
 }
+
 
 // Function for creating a Secret
 func (c *infisicalClient) CreateSecret(ctx context.Context, secret *models.Secret) (*models.Secret, error) {

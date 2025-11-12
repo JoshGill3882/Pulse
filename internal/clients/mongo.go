@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
+
 // MongoClientInterface exposes just the entry point repositories need.
 // Keeping this narrow makes it trivial to mock when writing unit tests.
 type MongoClientInterface interface {
@@ -36,10 +37,17 @@ type MongoCursorInterface interface {
 	Close(ctx context.Context) error
 }
 
+
 // mongoClient wraps the official driver client and satisfies MongoClientInterface by returning wrapped collections.
 type mongoClient struct {
 	SDK *mongo.Client
 }
+
+// mongoCollection embeds the driver collection and forwards calls so that higher layers never touch the concrete driver types directly.
+type mongoCollection struct {
+	coll *mongo.Collection
+}
+
 
 // NewMongo establishes the connection using environment configuration and returns the ready-to-use concrete client.
 func NewMongo() (MongoClientInterface, error) {
@@ -60,10 +68,6 @@ func (c *mongoClient) Collection(dbName, collName string) MongoCollectionInterfa
 	return &mongoCollection{coll: c.SDK.Database(dbName).Collection(collName)}
 }
 
-// mongoCollection embeds the driver collection and forwards calls so that higher layers never touch the concrete driver types directly.
-type mongoCollection struct {
-	coll *mongo.Collection
-}
 
 func (c *mongoCollection) InsertOne(ctx context.Context, document any) (*mongo.InsertOneResult, error) {
 	return c.coll.InsertOne(ctx, document)
@@ -87,6 +91,7 @@ func (c *mongoCollection) DeleteOne(ctx context.Context, filter any) (*mongo.Del
 	return c.coll.DeleteOne(ctx, filter, options.DeleteOne())
 }
 
+
 // mongoSingleResult wraps the driver SingleResult so repositories only depend on the Decode behavior they need for tests.
 type mongoSingleResult struct {
 	res *mongo.SingleResult
@@ -95,6 +100,7 @@ type mongoSingleResult struct {
 func (r *mongoSingleResult) Decode(val any) error {
 	return r.res.Decode(val)
 }
+
 
 // mongoCursor mirrors the subset of cursor operations repositories rely on.
 type mongoCursor struct {
